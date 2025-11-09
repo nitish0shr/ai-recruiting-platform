@@ -1,0 +1,73 @@
+{
+  "name": "ai-recruiting-platform",
+  "version": "1.0.0",
+  "description": "Production-grade AI recruiting platform with automated sourcing, scoring, and outreach",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd apps/backend && uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "dev:frontend": "cd apps/frontend && npm run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "clean": "turbo run clean",
+    "deploy": "npm run deploy:backend && npm run deploy:frontend",
+    "deploy:backend": "cd apps/backend && vercel --prod",
+    "deploy:frontend": "cd apps/frontend && vercel --prod",
+    "docker:build": "docker-compose build",
+    "docker:dev": "docker-compose up -d",
+    "docker:stop": "docker-compose down",
+    "demo": "./demo.sh",
+    "setup": "npm install && npm run setup:backend && npm run setup:frontend",
+    "setup:backend": "cd apps/backend && pip install -r requirements.txt && python -m spacy download en_core_web_sm",
+    "setup:frontend": "cd apps/frontend && npm install",
+    "test:e2e": "pytest tests/acceptance/test_e2e.py -v",
+    "test:security": "npm audit && safety check",
+    "test:performance": "k6 run tests/performance/load-test.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "prettier": "^3.0.0",
+    "turbo": "^1.10.0",
+    "typescript": "^5.0.0",
+    "vercel": "^32.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "packageManager": "npm@9.0.0",
+  "keywords": [
+    "recruiting",
+    "ai",
+    "hr",
+    "hiring",
+    "talent-acquisition",
+    "fastapi",
+    "nextjs",
+    "react",
+    "machine-learning",
+    "nlp"
+  ],
+  "author": "AI Recruiting Platform Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitish0shr/ai-recruiting-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nitish0shr/ai-recruiting-platform/issues"
+  },
+  "homepage": "https://github.com/nitish0shr/ai-recruiting-platform#readme"
+}

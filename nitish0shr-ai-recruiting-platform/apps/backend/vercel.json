@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/main.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/main.py"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "OPENAI_API_KEY": "@openai_api_key",
+    "SECRET_KEY": "@secret_key",
+    "SMTP_USERNAME": "@smtp_username",
+    "SMTP_PASSWORD": "@smtp_password",
+    "REDIS_URL": "@redis_url"
+  }
+}

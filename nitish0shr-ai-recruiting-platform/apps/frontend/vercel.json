@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next",
+      "config": {
+        "maxLambdaSize": "15mb"
+      }
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://ai-recruiting-platform.vercel.app"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_API_URL": "https://ai-recruiting-platform.vercel.app"
+    }
+  }
+}

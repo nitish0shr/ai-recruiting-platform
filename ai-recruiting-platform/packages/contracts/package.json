@@ -1,0 +1,23 @@
+{
+  "name": "@ai-recruiting-platform/contracts",
+  "version": "1.0.0",
+  "description": "OpenAPI contracts and typed SDKs for AI recruiting platform",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "generate": "openapi-typescript openapi.yaml --output src/types.ts",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "openapi-typescript": "^6.0.0",
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0"
+  }
+}

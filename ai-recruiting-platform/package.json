@@ -1,0 +1,40 @@
+{
+  "name": "ai-recruiting-platform",
+  "version": "1.0.0",
+  "description": "Production-grade AI recruiting platform with automated sourcing, scoring, and outreach",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "clean": "turbo run clean",
+    "deploy": "turbo run deploy",
+    "docker:build": "docker-compose build",
+    "docker:dev": "docker-compose up -d",
+    "docker:stop": "docker-compose down",
+    "contracts:generate": "cd packages/contracts && npm run generate",
+    "setup": "npm install && npm run contracts:generate"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "prettier": "^3.0.0",
+    "turbo": "^1.10.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "packageManager": "npm@9.0.0"
+}

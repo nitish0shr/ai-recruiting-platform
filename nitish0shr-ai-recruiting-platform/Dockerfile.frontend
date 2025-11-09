@@ -1,0 +1,80 @@
+# Multi-stage build for AI Recruiting Platform Frontend
+
+# Base stage
+FROM node:18-alpine as base
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY apps/frontend/package*.json ./
+RUN npm install --omit=dev
+
+# Development stage
+FROM base as development
+
+# Install all dependencies (including dev dependencies)
+RUN npm install
+
+# Copy source code
+COPY apps/frontend/ .
+COPY packages/ ../packages/
+
+# Set environment variables
+ENV NODE_ENV=development
+
+# Expose port
+EXPOSE 3000
+
+# Default command for development
+CMD ["npm", "run", "dev"]
+
+# Build stage
+FROM base as build
+
+# Install all dependencies
+RUN npm install
+
+# Copy source code
+COPY apps/frontend/ .
+COPY packages/ ../packages/
+
+# Build the application
+RUN npm run build
+
+# Production stage
+FROM node:18-alpine as production
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY apps/frontend/package*.json ./
+
+# Install production dependencies only
+RUN npm install --omit=dev && npm cache clean --force
+
+# Copy built application
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+
+# Set environment variables
+ENV NODE_ENV=production
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Change ownership
+RUN chown -R nextjs:nodejs /app
+USER nextjs
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/health || exit 1
+
+# Production command
+CMD ["npm", "start"]

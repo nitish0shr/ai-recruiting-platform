@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/frontend/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "maxLambdaSize": "15mb"
+      }
+    },
+    {
+      "src": "apps/backend/src/main.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "apps/backend/src/main.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "apps/frontend/$1"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://ai-recruiting-platform.vercel.app"
+  },
+  "build": {
+    "env": {
+      "DATABASE_URL": "@database_url",
+      "OPENAI_API_KEY": "@openai_api_key",
+      "SECRET_KEY": "@secret_key",
+      "SMTP_USERNAME": "@smtp_username",
+      "SMTP_PASSWORD": "@smtp_password"
+    }
+  }
+}
