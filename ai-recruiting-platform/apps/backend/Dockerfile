@@ -1,5 +1,5 @@
 FROM python:3.11-slim
-# AI Recruiting Platform Backend
+# AI Recruiting Platform Backend 
 
 WORKDIR /app
 
